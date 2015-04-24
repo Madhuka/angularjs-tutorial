@@ -5,42 +5,42 @@ angular.module('google-chart-example', ['googlechart']).controller("MainCtrl", f
     chart1.cssStyle = "height:400px; width:600px;";
     chart1.data = {"cols": [
         {id: "month", label: "Month", type: "string"},
-        {id: "laptop-id", label: "Laptop", type: "number"},
-        {id: "desktop-id", label: "Desktop", type: "number"},
-        {id: "server-id", label: "Server", type: "number"},
-        {id: "cost-id", label: "Shipping", type: "number"}
+        {id: "usa-id", label: "USA", type: "number"},
+        {id: "uk-id", label: "UK", type: "number"},
+        {id: "asia-id", label: "Asia", type: "number"},
+        {id: "other-id", label: "Other", type: "number"}
     ], "rows": [
         {c: [
             {v: "January"},
-            {v: 19, f: "42 items"},
-            {v: 12, f: "Ony 12 items"},
-            {v: 7, f: "7 servers"},
-            {v: 4}
+            {v: 22, f: "22 Visitors from USA"},
+            {v: 12, f: "Only 12 Visitors from UK"},
+            {v: 15, f: "15 Asian Visitors"},
+            {v: 14, f: "14 Others"}
         ]},
         {c: [
             {v: "February"},
-            {v: 13},
-            {v: 1, f: "1 unit (Out of stock this month)"},
-            {v: 12},
-            {v: 2}
+            {v: 14},
+            {v: 33, f: "Marketing has happen"},
+            {v: 28},
+            {v: 6}
         ]},
         {c: [
             {v: "March"},
-            {v: 24},
-            {v: 0},
+            {v: 22},
+            {v: 8, f: "UK vacation"},
             {v: 11},
-            {v: 6}
+            {v: 0}
 
         ]}
     ]};
 
     chart1.options = {
-        "title": "Sales per month",
+        "title": "Website Visitors per month",
         "isStacked": "true",
         "fill": 20,
         "displayExactValues": true,
         "vAxis": {
-            "title": "Sales unit", "gridlines": {"count": 6}
+            "title": "Visit Count", "gridlines": {"count": 6}
         },
         "hAxis": {
             "title": "Date"
