@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>My AngularJS App</title>
+
+</head>
+<body ng-app="google-chart-example" ng-controller="MainCtrl">
+<h1>Google Chart Tools AngularJS Directive Example</h1>
+<p>This is probably the most simple example you can get.  It
+  just shows you what you need to get the Google Chart Tools AngularJS Directive to work.
+</p>
+
+<div>
+<div google-chart chart="chart" style="{{chart.cssStyle}}"/>
+</div>
+
+<p>
+  Here are the steps:
+  <ol>
+    <li>Download <a href="https://raw.github.com/bouil/angular-google-chart/gh-pages/ng-google-chart.js">ng-google-chart.js from github</a> and add a script tag to your html.</li>
+    <li>Create a div like: <b><pre ng-non-bindable> &lt;div google-chart chart=&quot;chart&quot; style=&quot;{{chart.cssStyle}}&quot;/&gt;</pre></b></li>
+    <li>Add 'googlechart' to your module like this: <b><pre>angular.module('myApp',[ 'googlechart', ...</pre></b></li>
+    <li>Populate the <b>$scope.chart</b> like this:</li>
+  </ol>
+  <pre>{{chart | json}}</pre>
+</p>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+<script src="ng-google-chart.js"></script>
+<script src="chart.js"></script>
+</body>
+</html>
