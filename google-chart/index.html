@@ -5,8 +5,8 @@
   <title>Google Chart</title>
 
 </head>
-<body ng-app="google-chart-example" ng-controller="MainCtrl">
-<h1>Google Chart in AngularJS Directive</h1>
+<body ng-app="google-chart-example" ng-controller="ChartCtrl">
+<h1>Google Chart in AngularJS</h1>
 
 
 <div>
@@ -16,5 +16,12 @@
 <script src="..\node_modules\angular\angular.js"></script>
 <script src="..\node_modules\angular-google-chart\ng-google-chart.js"></script>
 <script src="chart.js"></script>
+<button ng-click="switch('ColumnChart')">ColumnChart</button>
+<button ng-click="switch('BarChart')">BarChart</button>
+<button ng-click="switch('AreaChart')">AreaChart</button>
+<button ng-click="switch('PieChart')">PieChart</button>
+<button ng-click="switch('LineChart')">LineChart</button>
+<button ng-click="switch('CandlestickChart')">CandlestickChart</button>
+<button ng-click="switch('Table')">Table</button>
 </body>
 </html>

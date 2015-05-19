@@ -1,7 +1,8 @@
-angular.module('google-chart-example', ['googlechart']).controller("MainCtrl", function ($scope) {
+angular.module('google-chart-example', ['googlechart']).controller("ChartCtrl", function ($scope) {
+var chart1 = {};
 
-    var chart1 = {};
-    chart1.type = "ColumnChart";
+    
+    chart1.type = "BarChart";
     chart1.cssStyle = "height:400px; width:600px;";
     chart1.data = {"cols": [
         {id: "month", label: "Month", type: "string"},
@@ -50,5 +51,17 @@ angular.module('google-chart-example', ['googlechart']).controller("MainCtrl", f
     chart1.formatters = {};
 
     $scope.chart = chart1;
+
+$scope.switch = function (chartType) {
+    $scope.chart.type=chartType;
+    AxisTransform()
+};
+
+AxisTransform = function () {
+    tempvAxis = $scope.chart.options.vAxis;
+    temphAxis = $scope.chart.options.hAxis;
+    $scope.chart.options.vAxis = temphAxis;
+    $scope.chart.options.hAxis = tempvAxis;
+};
 
 });
