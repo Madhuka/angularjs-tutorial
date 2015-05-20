@@ -4,36 +4,7 @@ var chart1 = {};
     
     chart1.type = "BarChart";
     chart1.cssStyle = "height:400px; width:600px;";
-    chart1.data = {"cols": [
-        {id: "month", label: "Month", type: "string"},
-        {id: "usa-id", label: "USA", type: "number"},
-        {id: "uk-id", label: "UK", type: "number"},
-        {id: "asia-id", label: "Asia", type: "number"},
-        {id: "other-id", label: "Other", type: "number"}
-    ], "rows": [
-        {c: [
-            {v: "January"},
-            {v: 22, f: "22 Visitors from USA"},
-            {v: 12, f: "Only 12 Visitors from UK"},
-            {v: 15, f: "15 Asian Visitors"},
-            {v: 14, f: "14 Others"}
-        ]},
-        {c: [
-            {v: "February"},
-            {v: 14},
-            {v: 33, f: "Marketing has happen"},
-            {v: 28},
-            {v: 6}
-        ]},
-        {c: [
-            {v: "March"},
-            {v: 22},
-            {v: 8, f: "UK vacation"},
-            {v: 11},
-            {v: 0}
-
-        ]}
-    ]};
+    chart1.data = data;
 
     chart1.options = {
         "title": "Website Visitors per month",
@@ -53,15 +24,57 @@ var chart1 = {};
     $scope.chart = chart1;
 
 $scope.switch = function (chartType) {
-    $scope.chart.type=chartType;
-    AxisTransform()
+    ResetOption();    
+    AxisTransform();
+    if (chartType=="3DPieChart"){
+        AddNewOption('is3D',true);
+        $scope.chart.type='PieChart';
+    }else if (chartType=="DonutChart") {
+        AddNewOption('pieHole',0.4);
+        $scope.chart.type='PieChart';
+    }else{
+        $scope.chart.type=chartType;
+    }
+        
 };
+
+$scope.switchData = function (sampleDataNo) {
+    if(sampleDataNo==1){
+        $scope.chart.data=data1;
+    }else if (sampleDataNo==2) {
+        $scope.chart.data=data2;
+    }else if (sampleDataNo==3) {
+        $scope.chart.data=data3;
+    }
+};    
 
 AxisTransform = function () {
     tempvAxis = $scope.chart.options.vAxis;
     temphAxis = $scope.chart.options.hAxis;
     $scope.chart.options.vAxis = temphAxis;
     $scope.chart.options.hAxis = tempvAxis;
+};
+
+AddNewOption = function (name,value) {
+    options = $scope.chart.options
+    $scope.chart.options[name] = value;
+};
+
+ResetOption = function () {
+   options = {
+        "title": "Website Visitors per month",
+        "isStacked": "true",
+        "fill": 20,
+        "displayExactValues": true,
+        "vAxis": {
+            "title": "Visit Count", "gridlines": {"count": 6}
+        },
+        "hAxis": {
+            "title": "Date"
+        }
+        
+    };
+    $scope.chart.options=options;
 };
 
 });
