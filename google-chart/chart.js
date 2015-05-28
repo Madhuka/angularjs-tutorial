@@ -44,6 +44,9 @@ $scope.switchData = function (sampleDataNo) {
     }else if (sampleDataNo==2) {
         $scope.chart.data=data2;
     }else if (sampleDataNo==3) {
+        AddNewOption('pointShape',{ type: 'triangle', rotation: 180 });
+        AddNewOption('crosshair',{ trigger: 'both' })
+        AddNewOption('pointSize',20);
         $scope.chart.data=data3;
     }
 };    
@@ -71,7 +74,8 @@ ResetOption = function () {
         },
         "hAxis": {
             "title": "Date"
-        }
+        },
+        "crosshair": { "trigger": "both" }
         
     };
     $scope.chart.options=options;
