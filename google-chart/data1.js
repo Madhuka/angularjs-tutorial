@@ -85,31 +85,38 @@ data2 = {"cols": [
     
 data3 = {"cols": [
         {id: "age", label: "Age", type: "number"},
-        {id: "weight", label: "Weight", type: "number"}
+        {id: "weight", label: "Weight", type: "number"},
+        {id: "height", label: "height", type: "number"}
         
     ], "rows": [
         {c: [
+            {v: 12},
             {v: 12},
             {v: 20}
         ]},
         {c: [
             {v: 8},
+            {v: 10},
             {v: 14}
         ]},
         {c: [
             {v: 4},
+            {v: 1},
             {v: 5.5}
         ]},
         {c: [
             {v: 7},
+            {v: 12},
             {v: 10}
         ]},
         {c: [
             {v: 9},
+            {v: 8},
             {v: 18}
         ]},
         {c: [
             {v: 13},
+            {v: 10},
             {v: 25}
         ]}
     ]};
