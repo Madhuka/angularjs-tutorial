@@ -22,7 +22,7 @@ angular.module('chart', ['googlechart', 'nvd3', 'highcharts-ng'])
                 y: function(d) {
                     return d.value;
                 },
-                showValues: true,                
+                showValues: true,
                 transitionDuration: 500,
                 xAxis: {
                     axisLabel: 'X Axis'
@@ -34,31 +34,19 @@ angular.module('chart', ['googlechart', 'nvd3', 'highcharts-ng'])
             }
         };
         $scope.data = [{
-            
+
             values: [{
                 "label": "A",
-                "value": -29.765957771107
+                "value": 5
             }, {
                 "label": "B",
-                "value": 0
+                "value": 10
             }, {
                 "label": "C",
-                "value": 32.807804682612
+                "value": 24
             }, {
                 "label": "D",
-                "value": 196.45946739256
-            }, {
-                "label": "E",
-                "value": 0.19434030906893
-            }, {
-                "label": "F",
-                "value": -98.079782601442
-            }, {
-                "label": "G",
-                "value": -13.925743130903
-            }, {
-                "label": "H",
-                "value": -5.1387322875705
+                "value": 8
             }]
         }];
 
@@ -76,23 +64,58 @@ angular.module('chart', ['googlechart', 'nvd3', 'highcharts-ng'])
             });
         };
 
-$scope.chartConfig = {
-        options: {
-            chart: {
-                type: 'bar'
-            }
-        },
-        series: [{
-            data: [10, 15, 12, 8, 7]
-        }],
-        title: {
-            text: 'Hello'
-        },
-size: {
-   width: 400,
-   height: 300
-  },
-        loading: false
-    }
+
+        //setting high chart labels and data seriees 
+        $scope.loadCarData = function() {
+            console.log($scope.chartConfig.series[0].data)
+            d3.csv("data/car.csv", function(d) {
+
+                return d.Make;
+            }, function(error, rows) {
+                $scope.chartConfig.xAxis.categories = rows;
+            });
+            d3.csv("data/car.csv", function(d) {
+
+                return +d.Length;
+            }, function(error, rows) {
+                console.log(rows);
+                $scope.chartConfig.series[0].data = rows;
+            });
+        };
+
+        //setting ncd3 labels and data 
+        $scope.loadCarDatatoNVD3 = function(labelx) {
+            console.log($scope.data[0].values)
+            d3.csv("data/car.csv", function(d) {
+
+                return {
+                    label: d[labelx],
+                    value: +d.Length
+                }
+            }, function(error, rows) {
+                $scope.data[0].values = rows;
+            });
+            
+        };
+
+
+        $scope.chartConfig = {
+            options: {
+                chart: {
+                    type: 'bar'
+                }
+            },
+            xAxis: {
+                categories: ['A', 'B', 'C', 'D']
+            },
+            series: [{
+                data: [10, 15, 12, 8]
+            }],
+            size: {
+                width: 400,
+                height: 300
+            },
+            loading: false
+        }
 
     }]);
