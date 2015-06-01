@@ -5,10 +5,12 @@ angular.module('chart', ['googlechart', 'nvd3', 'highcharts-ng'])
             console.log(loadFile($scope.fileName));
 
         };
+
+        //nvd3 chart
         $scope.options = {
             chart: {
                 type: 'discreteBarChart',
-                height: 250,
+                height: 300,
                 width: 400,
                 margin: {
                     top: 20,
@@ -17,7 +19,7 @@ angular.module('chart', ['googlechart', 'nvd3', 'highcharts-ng'])
                     left: 55
                 },
                 x: function(d) {
-                    return d.label;
+                    return d.valuex;
                 },
                 y: function(d) {
                     return d.value;
@@ -37,16 +39,20 @@ angular.module('chart', ['googlechart', 'nvd3', 'highcharts-ng'])
 
             values: [{
                 "label": "A",
-                "value": 5
+                "value": 5,
+                "valuex": 0
             }, {
                 "label": "B",
-                "value": 10
+                "value": 10,
+                "valuex": 1
             }, {
                 "label": "C",
-                "value": 24
+                "value": 24,
+                "valuex": 2
             }, {
                 "label": "D",
-                "value": 8
+                "value": 8,
+                "valuex": 3
             }]
         }];
 
@@ -66,15 +72,15 @@ angular.module('chart', ['googlechart', 'nvd3', 'highcharts-ng'])
 
 
         //setting high chart labels and data seriees 
-        $scope.loadCarData = function() {
+        $scope.loadCarData = function(fileName) {
             console.log($scope.chartConfig.series[0].data)
-            d3.csv("data/car.csv", function(d) {
+            d3.csv("data/" + fileName + ".csv", function(d) {
 
                 return d.Make;
             }, function(error, rows) {
                 $scope.chartConfig.xAxis.categories = rows;
             });
-            d3.csv("data/car.csv", function(d) {
+            d3.csv("data/" + fileName + ".csv", function(d) {
 
                 return +d.Length;
             }, function(error, rows) {
@@ -84,13 +90,14 @@ angular.module('chart', ['googlechart', 'nvd3', 'highcharts-ng'])
         };
 
         //setting ncd3 labels and data 
-        $scope.loadCarDatatoNVD3 = function(labelx) {
+        $scope.loadCarDatatoNVD3 = function(fileName,labelx) {
             console.log($scope.data[0].values)
-            d3.csv("data/car.csv", function(d) {
+            d3.csv("data/" + fileName + ".csv", function(d) {
 
                 return {
                     label: d[labelx],
-                    value: +d.Length
+                    value: +d.Length,
+                    valuex: +d.No
                 }
             }, function(error, rows) {
                 $scope.data[0].values = rows;
@@ -98,7 +105,24 @@ angular.module('chart', ['googlechart', 'nvd3', 'highcharts-ng'])
             
         };
 
+        //setting google chart labels and data 
+        $scope.loadCarDatatoGoogle = function(fileName) {
+            console.log($scope.chart.data)
+            //cols
+            d3.csv("data/" + fileName + ".csv", function(d) {
 
+                return {c: [
+            {v: d.Make},
+            {v: +d.Length}
+        ]}
+            }, function(error, rows) {
+                console.log(rows);
+                $scope.chart.data.rows=rows;
+            });
+            
+        };
+
+        //highchart 
         $scope.chartConfig = {
             options: {
                 chart: {
@@ -118,4 +142,65 @@ angular.module('chart', ['googlechart', 'nvd3', 'highcharts-ng'])
             loading: false
         }
 
+        //google chart
+        var chart1 = {};
+
+
+    chart1.type = "BarChart";
+    chart1.cssStyle = "height:400px; width:600px;";
+    chart1.data = {"cols": [
+        {id: "pizza", label: "Pizza", type: "string"},
+        {id: "populartiy", label: "Populartiy", type: "number"}
+        
+    ], "rows": [
+        {c: [
+            {v: "Pepperoni"},
+            {v: 14}
+        ]},
+        {c: [
+            {v: "Mushroom"},
+            {v: 6}
+        ]},
+        {c: [
+            {v: "Hawaiian"},
+            {v: 5}
+        ]},
+        {c: [
+            {v: "Sausage"},
+            {v: 10}
+        ]}
+    ]};
+
+    chart1.options = {
+        "title": "Google Bar Chart",
+        "isStacked": "true",
+        "fill": 20,
+        "displayExactValues": true,
+        "vAxis": {
+            "title": "V Axis",
+            "gridlines": {
+                "count": 6
+            }
+        },
+        "hAxis": {
+            "title": "hAxis title"
+        }
+    };
+
+    chart1.formatters = {};
+
+    $scope.chart = chart1;
+
+
+$scope.switch = function(gchartType,hchartType,dchartType) {
+    $scope.chart.type = gchartType;
+    $scope.chartConfig.options.chart.type = hchartType;
+    $scope.options.chart.type = dchartType;
+    //nvd3 
+    var nvdLabels = ["A", "B", "C", "D"];
+    $scope.options.chart.xAxis = {'axisLabel': 'Models'};
+    $scope.options.chart.xAxis = {'tickFormat': function(d){
+      return nvdLabels[d]
+    } };
+};
     }]);

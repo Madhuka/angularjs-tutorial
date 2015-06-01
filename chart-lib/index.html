@@ -13,8 +13,6 @@
 <link rel="stylesheet" href="css\chart.css"\>
 
 
-
-
 <script src="js\chart.js"></script>
 <script src="..\node_modules\jquery\dist\jquery.min.js"></script>
 <!--script src="http://code.highcharts.com/highcharts.src.js"></script-->
@@ -29,15 +27,21 @@
   <p>Enter CSV file name</p>
   <label>Sample Data Set:
   <input type="text" ng-model="fileName" /></label>
-  <button ng-click="loadData()">Load Data</button>
-  <button ng-click="loadCarData()">Car Data For HighChart</button>
-  <button ng-click="loadCarDatatoNVD3('Make')">Car Data For NVD3</button>
-  <button ng-click="loadCarDatatoNVD3('Model')">Car Data For NVD3</button>
-  
+  <button ng-click="loadData(fileName)">Load Data</button>
+  <button ng-click="loadCarData(fileName)">Car Data For HighChart</button>
+  <button ng-click="loadCarDatatoNVD3(fileName,'Make')">Car Data For NVD3</button>
+  <button ng-click="loadCarDatatoNVD3(fileName,'Model')">Car Data For NVD3 by Model</button>
+  <button ng-click="loadCarDatatoGoogle(fileName)">Car Data For Google Chart</button>
+<br>Chart Types
+<!-- googlechart, highChart, nvd3 is chart type order todo make it to json of chart types names-->
+<button ng-click="switch('LineChart','line','lineChart')">Line</button>
+<button ng-click="switch('BarChart','bar','discreteBarChart')">Bar</button>
   <p>NVD3 Chart</p>
   <nvd3 options='options' data='data'></nvd3>
   <p>HighChart</p>
   <highchart id="chart1" config="chartConfig"></highchart>
+  <p>Google Chart</p>
+  <div google-chart chart="chart" style="{{chart.cssStyle}}"/>
 </div>
 </body>
 </html>
